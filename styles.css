@@ -231,6 +231,29 @@ canvas {
   cursor: pointer;
 }
 
+.total-votes {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 8px;
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.total-votes span {
+  color: var(--accent-strong);
+  font-weight: 900;
+}
+
+.total-votes strong {
+  color: var(--ink);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
 .count-pill {
   display: inline-flex;
   align-items: center;

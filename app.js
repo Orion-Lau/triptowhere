@@ -33,6 +33,7 @@ const spinButton = document.querySelector("#spinButton");
 const refreshButton = document.querySelector("#refreshButton");
 const resultText = document.querySelector("#resultText");
 const saveStatus = document.querySelector("#saveStatus");
+const totalVotes = document.querySelector("#totalVotes");
 const voteList = document.querySelector("#voteList");
 const destinationTags = document.querySelector("#destinationTags");
 const destinationCount = document.querySelector("#destinationCount");
@@ -141,8 +142,10 @@ async function fetchVotes() {
 
 async function renderVotes() {
   const votes = await fetchVotes();
+  const total = Object.values(votes).reduce((sum, score) => sum + score, 0);
   const maxVotes = Math.max(1, ...Object.values(votes));
 
+  totalVotes.textContent = total.toLocaleString("zh-CN");
   voteList.innerHTML = destinations
     .map((destination, index) => {
       const score = votes[destination] || 0;
