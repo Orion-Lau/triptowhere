@@ -1,5 +1,6 @@
-const SUPABASE_URL = "";
-const SUPABASE_ANON_KEY = "";
+const SUPABASE_URL = "https://inhlojckstflvillygtp.supabase.co";
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImluaGxvamNrc3RmbHZpbGx5Z3RwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NjE5MTgsImV4cCI6MjA5NDMzNzkxOH0.fahT4uIBu5IkV2OrE7AUaMrkLiZt1lC6xtCZ0-s_TGo";
 
 const destinations = [
   { city: "布加勒斯特", country: "罗马尼亚" },
