@@ -116,7 +116,7 @@ function saveLocalVote(destination) {
 async function saveVote(destination) {
   if (!supabaseClient) {
     saveLocalVote(destination);
-    saveStatus.textContent = "当前使用本机演示统计；配置 Supabase 后可收集所有人的票数。";
+    saveStatus.textContent = "当前使用本机演示统计。";
     return;
   }
 
