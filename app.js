@@ -66,6 +66,9 @@ const totalVotes = document.querySelector("#totalVotes");
 const voteList = document.querySelector("#voteList");
 const destinationTags = document.querySelector("#destinationTags");
 const destinationCount = document.querySelector("#destinationCount");
+const resultModal = document.querySelector("#resultModal");
+const modalDestination = document.querySelector("#modalDestination");
+const modalSpinButton = document.querySelector("#modalSpinButton");
 
 const storageKey = "travel-wheel-local-votes";
 const segmentAngle = (Math.PI * 2) / destinations.length;
@@ -209,9 +212,21 @@ function getWinningDestination(rotationDegrees) {
   return `${destination.city}（${destination.country}）`;
 }
 
+function showResult(destination) {
+  modalDestination.textContent = destination;
+  resultModal.classList.add("is-open");
+  resultModal.setAttribute("aria-hidden", "false");
+}
+
+function hideResult() {
+  resultModal.classList.remove("is-open");
+  resultModal.setAttribute("aria-hidden", "true");
+}
+
 async function spin() {
   if (isSpinning) return;
 
+  hideResult();
   isSpinning = true;
   spinButton.disabled = true;
   saveStatus.textContent = "正在旋转...";
@@ -224,6 +239,7 @@ async function spin() {
   window.setTimeout(async () => {
     const destination = getWinningDestination(currentRotation);
     resultText.textContent = destination;
+    showResult(destination);
     await saveVote(destination);
     await renderVotes();
     spinButton.disabled = false;
@@ -237,3 +253,9 @@ renderVotes();
 
 spinButton.addEventListener("click", spin);
 refreshButton.addEventListener("click", renderVotes);
+modalSpinButton.addEventListener("click", spin);
+resultModal.addEventListener("click", (event) => {
+  if (event.target === resultModal) {
+    hideResult();
+  }
+});
