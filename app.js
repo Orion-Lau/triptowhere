@@ -2,17 +2,20 @@ const SUPABASE_URL = "";
 const SUPABASE_ANON_KEY = "";
 
 const destinations = [
-  "东京",
-  "首尔",
-  "清迈",
-  "巴厘岛",
-  "巴黎",
-  "罗马",
-  "冰岛",
-  "纽约",
-  "开罗",
-  "悉尼",
+  { city: "布加勒斯特", country: "罗马尼亚" },
+  { city: "索非亚", country: "保加利亚" },
+  { city: "布达佩斯", country: "匈牙利" },
+  { city: "维也纳", country: "奥地利" },
+  { city: "釜山", country: "韩国" },
+  { city: "札幌", country: "日本" },
+  { city: "东京", country: "日本" },
+  { city: "悉尼", country: "澳大利亚" },
+  { city: "墨尔本", country: "澳大利亚" },
+  { city: "伦敦", country: "英国" },
+  { city: "雅典", country: "希腊" },
 ];
+
+const destinationLabels = destinations.map(({ city, country }) => `${city}（${country}）`);
 
 const colors = [
   "#f9735b",
@@ -74,7 +77,7 @@ function drawWheel() {
     ctx.font = "700 32px 'Noto Sans SC', sans-serif";
     ctx.shadowColor = "rgba(0, 0, 0, 0.24)";
     ctx.shadowBlur = 3;
-    ctx.fillText(destination, radius - 54, 10);
+    ctx.fillText(destination.city, radius - 54, 10);
     ctx.restore();
   });
 
@@ -89,13 +92,15 @@ function drawWheel() {
 
 function renderDestinations() {
   destinationCount.textContent = `${destinations.length} 个`;
-  destinationTags.innerHTML = destinations.map((item) => `<span>${item}</span>`).join("");
+  destinationTags.innerHTML = destinations
+    .map((destination) => `<span>${destination.city}（${destination.country}）</span>`)
+    .join("");
 }
 
 function getLocalVotes() {
   const stored = window.localStorage.getItem(storageKey);
   const parsed = stored ? JSON.parse(stored) : {};
-  return destinations.reduce((votes, destination) => {
+  return destinationLabels.reduce((votes, destination) => {
     votes[destination] = Number(parsed[destination] || 0);
     return votes;
   }, {});
@@ -134,7 +139,7 @@ async function fetchVotes() {
     return getLocalVotes();
   }
 
-  return destinations.reduce((votes, destination) => {
+  return destinationLabels.reduce((votes, destination) => {
     votes[destination] = data.filter((row) => row.destination === destination).length;
     return votes;
   }, {});
@@ -143,18 +148,23 @@ async function fetchVotes() {
 async function renderVotes() {
   const votes = await fetchVotes();
   const total = Object.values(votes).reduce((sum, score) => sum + score, 0);
-  const maxVotes = Math.max(1, ...Object.values(votes));
+  const countryVotes = destinations.reduce((ranking, destination) => {
+    const label = `${destination.city}（${destination.country}）`;
+    ranking[destination.country] = (ranking[destination.country] || 0) + (votes[label] || 0);
+    return ranking;
+  }, {});
+  const rankedCountries = Object.entries(countryVotes).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-CN"));
+  const maxVotes = Math.max(1, ...Object.values(countryVotes));
 
   totalVotes.textContent = total.toLocaleString("zh-CN");
-  voteList.innerHTML = destinations
-    .map((destination, index) => {
-      const score = votes[destination] || 0;
+  voteList.innerHTML = rankedCountries
+    .map(([country, score], index) => {
       const width = Math.max(3, Math.round((score / maxVotes) * 100));
       const color = colors[index % colors.length];
 
       return `
         <li class="vote-item">
-          <span class="vote-name">${destination}</span>
+          <span class="vote-name">${country}</span>
           <span class="vote-score">${score} 票</span>
           <span class="bar" aria-hidden="true">
             <span style="--bar-width:${width}%; --bar-color:${color}"></span>
@@ -169,7 +179,8 @@ function getWinningDestination(rotationDegrees) {
   const normalized = ((rotationDegrees % 360) + 360) % 360;
   const pointerDegrees = (360 - normalized) % 360;
   const index = Math.floor(pointerDegrees / (360 / destinations.length)) % destinations.length;
-  return destinations[index];
+  const destination = destinations[index];
+  return `${destination.city}（${destination.country}）`;
 }
 
 async function spin() {
