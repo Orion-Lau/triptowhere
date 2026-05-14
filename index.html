@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>旅行目的地转盘</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="wheel-stage" aria-labelledby="title">
+        <div class="brand-row">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span>Travel Picker</span>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">下一站交给运气</p>
+          <h1 id="title">旅行目的地转盘</h1>
+          <p class="subtitle">点一下开始旋转，落定后自动给目的地记一票。</p>
+        </div>
+
+        <div class="wheel-wrap">
+          <div class="pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="720" height="720" aria-label="旅游目的地转盘"></canvas>
+          <button id="spinButton" class="spin-button" type="button">
+            <span class="spin-icon" aria-hidden="true">↻</span>
+            <span>开始</span>
+          </button>
+        </div>
+      </section>
+
+      <aside class="control-panel" aria-label="统计和设置">
+        <section class="result-panel">
+          <p class="panel-label">本次结果</p>
+          <h2 id="resultText">等待开转</h2>
+          <p id="saveStatus" class="save-status">配置 Supabase 后会同步真实票数。</p>
+        </section>
+
+        <section>
+          <div class="panel-heading">
+            <h2>票数统计</h2>
+            <button id="refreshButton" class="icon-button" type="button" aria-label="刷新统计" title="刷新统计">
+              ↺
+            </button>
+          </div>
+          <ol id="voteList" class="vote-list"></ol>
+        </section>
+
+        <section>
+          <div class="panel-heading">
+            <h2>目的地</h2>
+            <span id="destinationCount" class="count-pill"></span>
+          </div>
+          <div id="destinationTags" class="destination-tags"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
