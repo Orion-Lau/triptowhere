@@ -1,6 +1,6 @@
 # ORION的旅行目的地转盘
 
-一个可以部署到 GitHub Pages 的旅行目的地转盘。用户转到目的地后，会把城市结果记入票数统计，并按国家显示总票数排名。
+一个可以部署到 GitHub Pages 的旅行目的地转盘。用户转到目的地后，会把城市结果记入票数统计，并按国家/地区显示总票数排名。
 
 ## 本地预览
 
@@ -47,7 +47,7 @@ const SUPABASE_ANON_KEY = "你的 anon public key";
 
 ## 修改目的地
 
-在 `app.js` 里修改 `destinations` 数组即可。转盘显示城市，结果保存为 `城市（国家）`，统计区按国家汇总：
+在 `app.js` 里修改 `destinations` 数组即可。转盘显示城市，结果保存为 `城市（国家/地区）`，统计区按国家/地区汇总：
 
 ```js
 const destinations = [

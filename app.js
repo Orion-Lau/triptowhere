@@ -14,21 +14,46 @@ const destinations = [
   { city: "墨尔本", country: "澳大利亚" },
   { city: "伦敦", country: "英国" },
   { city: "雅典", country: "希腊" },
+  { city: "高雄", country: "中国台湾" },
+  { city: "台中", country: "中国台湾" },
+  { city: "雷克雅未克", country: "冰岛" },
+  { city: "胡志明", country: "越南" },
+  { city: "金边", country: "柬埔寨" },
+  { city: "伊斯坦布尔", country: "土耳其" },
+  { city: "科希策", country: "斯洛伐克" },
+  { city: "乌鲁木齐", country: "中国" },
+  { city: "华沙", country: "波兰" },
+  { city: "布拉格", country: "捷克" },
+  { city: "斯德哥尔摩", country: "瑞典" },
+  { city: "奥克兰", country: "新西兰" },
 ];
 
 const destinationLabels = destinations.map(({ city, country }) => `${city}（${country}）`);
 
 const colors = [
-  "#f9735b",
-  "#f5b84b",
-  "#48a868",
-  "#6aa9ff",
-  "#7c6ee6",
-  "#be5d8b",
-  "#14b8a6",
-  "#ef4444",
-  "#84cc16",
-  "#38bdf8",
+  "#e11d48",
+  "#2563eb",
+  "#f59e0b",
+  "#7c3aed",
+  "#16a34a",
+  "#db2777",
+  "#0891b2",
+  "#ea580c",
+  "#4f46e5",
+  "#65a30d",
+  "#be123c",
+  "#0d9488",
+  "#ca8a04",
+  "#9333ea",
+  "#15803d",
+  "#dc2626",
+  "#0284c7",
+  "#c2410c",
+  "#6d28d9",
+  "#4d7c0f",
+  "#9f1239",
+  "#0369a1",
+  "#a16207",
 ];
 
 const canvas = document.querySelector("#wheel");
@@ -75,7 +100,7 @@ function drawWheel() {
     ctx.rotate(start + segmentAngle / 2);
     ctx.textAlign = "right";
     ctx.fillStyle = "#ffffff";
-    ctx.font = "700 32px 'Noto Sans SC', sans-serif";
+    ctx.font = "700 24px 'Noto Sans SC', sans-serif";
     ctx.shadowColor = "rgba(0, 0, 0, 0.24)";
     ctx.shadowBlur = 3;
     ctx.fillText(destination.city, radius - 54, 10);
