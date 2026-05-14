@@ -34,15 +34,15 @@
             <span>开始</span>
           </button>
         </div>
-      </section>
 
-      <aside class="control-panel" aria-label="统计和设置">
         <section class="result-panel">
           <p class="panel-label">本次结果</p>
           <h2 id="resultText">等待开转</h2>
           <p id="saveStatus" class="save-status">已连接在线票数统计。</p>
         </section>
+      </section>
 
+      <aside class="control-panel" aria-label="统计和设置">
         <section>
           <div class="panel-heading">
             <h2>国家/地区排名</h2>
@@ -67,16 +67,7 @@
       </aside>
     </main>
 
-    <div id="resultModal" class="result-modal" aria-hidden="true">
-      <div class="result-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <p class="modal-kicker">抽中目的地</p>
-        <h2 id="modalTitle">准备出发</h2>
-        <p id="modalDestination" class="modal-destination">等待开转</p>
-        <button id="modalSpinButton" class="modal-action" type="button">再转一次</button>
-      </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./app.js?v=lottery-result-1"></script>
+    <script src="./app.js?v=result-under-wheel-1"></script>
   </body>
 </html>
